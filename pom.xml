@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>in.javahome</groupId>
-  <artifactId>devops-app</artifactId>
+  <artifactId>project-devops-app</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>war</packaging>
 
