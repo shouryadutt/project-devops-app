@@ -64,7 +64,7 @@
         <div class="logo">Java Home Cloud</div>
     </header>
     <div class="center-text">
-        <h1>Welcome to Java Home Cloud</h1>
+        <h1>TOMCAT DEPLOYMENT USING EC2</h1>
         <p class="subtitle">Transform Your Career with Our DevOps and AWS Courses - Start or Elevate Your Journey!</p>
         <div class="link-container">
             <a href="https://instagram.com/javahomecloud" target="_blank"><i class="fab fa-instagram icon"></i>Follow us on Instagram</a>
