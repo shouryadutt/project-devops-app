@@ -1,25 +1,21 @@
 ---
-- name: Deploy DevOps App to Tomcat
-  hosts: localhost
-  gather_facts: no
-  vars:
-    tomcat_ip: "172.31.26.51"
-    war_file: "devops-app.war"
-
+- name: Deploy DevOps App
+  hosts: tomcat_servers
   tasks:
-    - name: Maven Build
-      command: mvn clean package
-      args:
-        chdir: "{{ playbook_dir }}"
-
-    - name: Copy WAR file to Tomcat Server
-      ansible.builtin.copy:
-        src: "{{ playbook_dir }}/target/{{ war_file }}"
-        dest: "/opt/tomcat9/webapps/{{ war_file }}"
+    - name: Copy WAR file to Tomcat webapps directory
+      copy:
+        src: "target/devops-app.war"
+        dest: "/opt/tomcat9/webapps/devops-app.war"
         remote_src: yes
 
-    - name: Restart Tomcat
-      ansible.builtin.shell:
-        cmd: |
-          ssh ec2-user@{{ tomcat_ip }} /opt/tomcat9/bin/shutdown.sh
-          ssh ec2-user@{{ tomcat_ip }} /opt/tomcat9/bin/startup.sh
+    - name: Stop Tomcat
+      become: yes
+      service:
+        name: tomcat
+        state: stopped
+
+    - name: Start Tomcat
+      become: yes
+      service:
+        name: tomcat
+        state: started
