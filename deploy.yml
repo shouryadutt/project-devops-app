@@ -4,7 +4,7 @@
   tasks:
     - name: Copy WAR file to Tomcat webapps directory
       copy:
-        src: "target/devops-app.war"
+        src: "t/var/lib/jenkins/workspace/tomcat-deploy/target/devops-app.war"
         dest: "/opt/tomcat9/webapps/devops-app.war"
         remote_src: yes
 
