@@ -2,6 +2,7 @@ pipeline {
     agent any
           environment{
             TOMCAT_IP = '172.31.26.51' 
+              
            }
 
     stages {
@@ -33,5 +34,3 @@ pipeline {
     
         }
     }
-    
-}
