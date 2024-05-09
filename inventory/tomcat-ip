@@ -1,1 +1,2 @@
-
+[tomcat_servers]
+172.31.26.51 ansible_user=ec2-user ansible_ssh_private_key_file=/path/to/your/private_key.pem
