@@ -1,14 +1,26 @@
-# Use the official Tomcat image from the Docker Hub
-FROM tomcat:9.0
+# First stage: Build the WAR file using Maven
+FROM maven:3.8.1-openjdk-11 AS build
+WORKDIR /app
 
-# Remove the default webapps from Tomcat
-RUN rm -rf /usr/local/tomcat/webapps/*
+# Copy the Maven project files to the build context
+COPY pom.xml .
+COPY src ./src
 
-# Copy your WAR file to the Tomcat webapps directory
-COPY  target/devops-app.war /usr/local/tomcat/webapps/ROOT.war
+# Package the application as a WAR file
+RUN mvn clean package
 
-# Expose port 8080
+# Check if the WAR file exists (optional but useful for debugging)
+RUN ls -l target/
+
+# Second stage: Create a lightweight runtime image
+FROM tomcat:9.0-jdk11-adoptopenjdk-hotspot
+
+# Copy the WAR file from the build stage to the Tomcat webapps directory
+COPY --from=build /app/target/devops-app.war /usr/local/tomcat/webapps/
+
+# Expose the port that the Tomcat server will run on
 EXPOSE 8080
 
-# Start Tomcat
+# Start the Tomcat server
 CMD ["catalina.sh", "run"]
+
