@@ -1,26 +1,11 @@
-# First stage: Build the WAR file using Maven
-FROM maven:3.8.1-openjdk-11 AS build
-WORKDIR /app
+# Use an official Nginx image as the base image
+FROM nginx:alpine
 
-# Copy the Maven project files to the build context
-COPY pom.xml .
-COPY src ./src
+# Copy the HTML files to the Nginx directory
+COPY . /usr/share/nginx/html
 
-# Package the application as a WAR file
-RUN mvn clean package
+# Expose port 80 to the outside world
+EXPOSE 80
 
-# Check if the WAR file exists (optional but useful for debugging)
-RUN ls -l target/
-
-# Second stage: Create a lightweight runtime image
-FROM tomcat:9.0-jdk11-adoptopenjdk-hotspot
-
-# Copy the WAR file from the build stage to the Tomcat webapps directory
-COPY --from=build /app/target/devops-app.war /usr/local/tomcat/webapps/
-
-# Expose the port that the Tomcat server will run on
-EXPOSE 8080
-
-# Start the Tomcat server
-CMD ["catalina.sh", "run"]
-
+# Start Nginx when the container launches
+CMD ["nginx", "-g", "daemon off;"]
