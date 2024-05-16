@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tomcat-deployment
+  name: my-tomcat-app-deployment
 spec:
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
-      app: tomcat-deployment
+      app: my-tomcat-app
   template:
     metadata:
       labels:
-        app: tomcat-deployment
+        app: my-tomcat-app
     spec:
       containers:
-      - name: tomcat-deployment
-        image: your-dockerhub-username/tomcat-deployment:latest
+      - name: my-tomcat-app
+        image: 
         ports:
-        - containerPort: 80
+        - containerPort: 8080
