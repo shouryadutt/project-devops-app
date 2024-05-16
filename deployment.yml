@@ -2,32 +2,18 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: tomcat-deployment
-  labels:
-    app: tomcat
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: tomcat
+      app: tomcat-deployment
   template:
     metadata:
       labels:
-        app: tomcat
+        app: tomcat-deployment
     spec:
       containers:
-      - name: tomcat
-        image: shouryadutt/webapp:v2
+      - name: tomcat-deployment
+        image: your-dockerhub-username/tomcat-deployment:latest
         ports:
-        - containerPort: 8080
-        livenessProbe:
-          httpGet:
-            path: /
-            port: 8080
-          initialDelaySeconds: 30
-          periodSeconds: 10
-        readinessProbe:
-          httpGet:
-            path: /
-            port: 8080
-          initialDelaySeconds: 30
-          periodSeconds: 10
+        - containerPort: 80
