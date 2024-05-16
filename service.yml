@@ -4,10 +4,9 @@ metadata:
   name: tomcat-service
 spec:
   selector:
-    app: tomcat
+    app: tomcat-deployment
   ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 8080
-      nodePort: 30007  # specify a node port
-  type: NodePort
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+  type: LoadBalancer
